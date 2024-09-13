@@ -18,7 +18,7 @@ test.attachSchema(new SimpleSchema({
 
 describe('deny', () => {
   it('denyInsert', (done) => {
-    test.insert({
+    test.insertAsync({
       denyInsert: 'foo',
     }, (error) => {
       expect(error && error.message).toBe('Deny insert cannot be set during an insert in test insert');
@@ -35,12 +35,12 @@ describe('deny', () => {
   });
 
   it('denyUpdate', (done) => {
-    test.insert({
+    test.insertAsync({
       denyUpdate: 'foo',
     }, (err, newId) => {
       expect(typeof newId).toBe('string');
 
-      test.update(newId, {
+      test.updateAsync(newId, {
         $set: {
           denyUpdate: 'foo',
         },
@@ -55,7 +55,7 @@ describe('deny', () => {
         expect(key.type).toBe('updateNotAllowed');
 
         // Now test valid case
-        test.update(newId, {
+        test.updateAsync(newId, {
           $set: {
             denyInsert: 'foo',
           },

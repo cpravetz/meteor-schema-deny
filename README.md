@@ -33,7 +33,7 @@ const postSchema = new SimpleSchema({
 const Posts = new Mongo.Collection('posts');
 Posts.attachSchema(postSchema);
 
-const postId = Posts.insert({title: 'Hello', content: 'World', createdAt: new Date()});
+const postId = Posts.insertAsync({title: 'Hello', content: 'World', createdAt: new Date()});
 ```
 
 The `denyInsert` option works the same way, but for inserts. If you set `denyInsert` to true, you will need to set `optional: true` as well.
